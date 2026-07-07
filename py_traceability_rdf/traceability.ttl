@@ -1,0 +1,260 @@
+@prefix ns1: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix trc: <http://frittenburger.de/ontology/traceability#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+trc:contains a owl:ObjectProperty ;
+    rdfs:label "contains"@en ;
+    rdfs:comment "Represents hierarchical containment between requirements."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range trc:Requirement ;
+    rdfs:subPropertyOf trc:DependencyRelation .
+
+trc:copiedFrom a owl:ObjectProperty ;
+    rdfs:label "copied from"@en ;
+    rdfs:comment "Indicates that a requirement was copied from another requirement."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range trc:Requirement ;
+    rdfs:subPropertyOf trc:EvolutionRelation .
+
+trc:createdAt a owl:DatatypeProperty ;
+    rdfs:label "Created At"@en ;
+    rdfs:comment "Timestamp when the object was initially created."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range xsd:dateTime .
+
+trc:createdBy a owl:ObjectProperty ;
+    rdfs:label "created by"@en ;
+    rdfs:comment "Links a decision or requirement to the stakeholder who created it."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( trc:Decision trc:Requirement ) ] ;
+    rdfs:range trc:Stakeholder .
+
+trc:criticality a owl:DatatypeProperty ;
+    rdfs:label "Criticality"@en ;
+    rdfs:comment "Criticality level used for prioritization and compliance planning."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range xsd:string .
+
+trc:decisionStatus a owl:DatatypeProperty ;
+    rdfs:label "Decision Status"@en ;
+    rdfs:comment "Decision state, for example proposed, accepted, rejected, or deprecated."@en ;
+    rdfs:domain trc:Decision ;
+    rdfs:range xsd:string .
+
+trc:derivedFrom a owl:ObjectProperty ;
+    rdfs:label "derived from"@en ;
+    rdfs:comment "Indicates that a requirement was derived from another requirement."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range trc:Requirement ;
+    rdfs:subPropertyOf trc:EvolutionRelation .
+
+trc:description a owl:DatatypeProperty ;
+    rdfs:label "Description"@en ;
+    rdfs:comment "Textual description used to capture context and intent."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range xsd:string .
+
+trc:designType a owl:DatatypeProperty ;
+    rdfs:label "Design Type"@en ;
+    rdfs:comment "Design element kind, for example architecture block, interface, or SysML element."@en ;
+    rdfs:domain trc:DesignElement ;
+    rdfs:range xsd:string .
+
+trc:identifier a owl:DatatypeProperty ;
+    rdfs:label "Identifier"@en ;
+    rdfs:comment "Stable unique key of a traceable object."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range xsd:string .
+
+trc:isJustifiedBy a owl:ObjectProperty ;
+    rdfs:label "is justified by"@en ;
+    rdfs:comment "Links a decision to the rationale that justifies it."@en ;
+    rdfs:domain trc:Decision ;
+    rdfs:range trc:Rationale ;
+    rdfs:subPropertyOf trc:RationaleRelation .
+
+trc:lifecyclePhase a owl:DatatypeProperty ;
+    rdfs:label "Lifecycle Phase"@en ;
+    rdfs:comment "Requirement lifecycle phase, for example pre-RS or post-RS."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range xsd:string .
+
+trc:modifiedAt a owl:DatatypeProperty ;
+    rdfs:label "Modified At"@en ;
+    rdfs:comment "Timestamp of the latest modification."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range xsd:dateTime .
+
+trc:modulePath a owl:DatatypeProperty ;
+    rdfs:label "Module Path"@en ;
+    rdfs:comment "Repository or file-system path of a code module."@en ;
+    rdfs:domain trc:CodeModule ;
+    rdfs:range xsd:string .
+
+trc:organization a owl:DatatypeProperty ;
+    rdfs:label "Organization"@en ;
+    rdfs:comment "Organization or team affiliation of the stakeholder."@en ;
+    rdfs:domain trc:Stakeholder ;
+    rdfs:range xsd:string .
+
+trc:originatesFrom a owl:ObjectProperty ;
+    rdfs:label "originates from"@en ;
+    rdfs:comment "Links rationale information to the source it originates from."@en ;
+    rdfs:domain trc:Rationale ;
+    rdfs:range trc:Source .
+
+trc:programmingLanguage a owl:DatatypeProperty ;
+    rdfs:label "Programming Language"@en ;
+    rdfs:comment "Programming language of a code module."@en ;
+    rdfs:domain trc:CodeModule ;
+    rdfs:range xsd:string .
+
+trc:rationaleKind a owl:DatatypeProperty ;
+    rdfs:label "Rationale Kind"@en ;
+    rdfs:comment "Rationale category, for example issue, argument, assumption, or alternative."@en ;
+    rdfs:domain trc:Rationale ;
+    rdfs:range xsd:string .
+
+trc:refines a owl:ObjectProperty ;
+    rdfs:label "refines"@en ;
+    rdfs:comment "Indicates that one artifact refines another artifact."@en ;
+    rdfs:domain _:Nee95fe590c424fe89d4c9c7aa5d732f2 ;
+    rdfs:range _:Nee95fe590c424fe89d4c9c7aa5d732f2 ;
+    rdfs:subPropertyOf trc:DependencyRelation .
+
+trc:satisfies a owl:ObjectProperty ;
+    rdfs:label "satisfies"@en ;
+    rdfs:comment "Links a design or code artifact to a requirement it satisfies."@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( trc:DesignElement trc:CodeModule ) ] ;
+    rdfs:range trc:Requirement ;
+    rdfs:subPropertyOf trc:SatisfactionRelation .
+
+trc:sourceReference a owl:DatatypeProperty ;
+    rdfs:label "Source Reference"@en ;
+    rdfs:comment "Resolvable URI or external reference to the source artifact."@en ;
+    rdfs:domain trc:Source ;
+    rdfs:range xsd:anyURI .
+
+trc:sourceType a owl:DatatypeProperty ;
+    rdfs:label "Source Type"@en ;
+    rdfs:comment "Source type, for example document, standard, ticket, or meeting note."@en ;
+    rdfs:domain trc:Source ;
+    rdfs:range xsd:string .
+
+trc:stakeholderRole a owl:DatatypeProperty ;
+    rdfs:label "Stakeholder Role"@en ;
+    rdfs:comment "Primary role of the stakeholder in lifecycle activities."@en ;
+    rdfs:domain trc:Stakeholder ;
+    rdfs:range xsd:string .
+
+trc:testType a owl:DatatypeProperty ;
+    rdfs:label "Test Type"@en ;
+    rdfs:comment "Type of test case, for example unit, integration, or acceptance."@en ;
+    rdfs:domain trc:TestCase ;
+    rdfs:range xsd:string .
+
+trc:title a owl:DatatypeProperty ;
+    rdfs:label "Title"@en ;
+    rdfs:comment "Human-readable title of a traceable object."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range xsd:string .
+
+trc:tracesTo a owl:ObjectProperty ;
+    rdfs:label "traces to"@en ;
+    rdfs:comment "Links a requirement to rationale information for traceability."@en ;
+    rdfs:domain trc:Requirement ;
+    rdfs:range trc:Rationale ;
+    rdfs:subPropertyOf trc:RationaleRelation .
+
+trc:verificationStatus a owl:DatatypeProperty ;
+    rdfs:label "Verification Status"@en ;
+    rdfs:comment "Verification result state, for example planned, passed, failed, or blocked."@en ;
+    rdfs:domain trc:TestCase ;
+    rdfs:range xsd:string .
+
+trc:verifies a owl:ObjectProperty ;
+    rdfs:label "verifies"@en ;
+    rdfs:comment "Links a test case to a requirement or code module it verifies."@en ;
+    rdfs:domain trc:TestCase ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( trc:Requirement trc:CodeModule ) ] ;
+    rdfs:subPropertyOf trc:SatisfactionRelation .
+
+<https://gitlab.hpi.de/dfriedenberger/traceability> a owl:Ontology ;
+    ns1:creator <https://www.researchgate.net/profile/Dirk_Friedenberger>,
+        "Dirk Friedenberger" ;
+    ns1:description "An RDF ontology for object-level traceability."@en ;
+    ns1:identifier "http://frittenburger.de/ontology/traceability#" ;
+    ns1:title "Traceability Ontology" ;
+    owl:versionInfo "0.0.1" .
+
+trc:DependencyRelation a owl:ObjectProperty ;
+    rdfs:label "Dependency Relation"@en ;
+    rdfs:comment "Abstract relation category for dependency and decomposition links."@en .
+
+trc:EvolutionRelation a owl:ObjectProperty ;
+    rdfs:label "Evolution Relation"@en ;
+    rdfs:comment "Abstract relation category for evolution links."@en .
+
+trc:RationaleRelation a owl:ObjectProperty ;
+    rdfs:label "Rationale Relation"@en ;
+    rdfs:comment "Abstract relation category for justification-related links."@en .
+
+trc:SatisfactionRelation a owl:ObjectProperty ;
+    rdfs:label "Satisfaction Relation"@en ;
+    rdfs:comment "Abstract relation category for satisfaction and verification links."@en .
+
+trc:Decision a owl:Class ;
+    rdfs:label "Decision"@en ;
+    rdfs:comment "A decision made during development or change management."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:DesignElement a owl:Class ;
+    rdfs:label "Design Element"@en ;
+    rdfs:comment "A design artifact that refines or realizes requirements."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:Source a owl:Class ;
+    rdfs:label "Source"@en ;
+    rdfs:comment "A source artifact such as a document, note, ticket, or standard."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:Stakeholder a owl:Class ;
+    rdfs:label "Stakeholder"@en ;
+    rdfs:comment "A person, role, or organization responsible for creating or changing artifacts."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:TestCase a owl:Class ;
+    rdfs:label "Test Case"@en ;
+    rdfs:comment "A verification artifact used to validate requirements or implementation."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:CodeModule a owl:Class ;
+    rdfs:label "Code Module"@en ;
+    rdfs:comment "A software implementation artifact such as a module, class, or function."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:Rationale a owl:Class ;
+    rdfs:label "Rationale"@en ;
+    rdfs:comment "An explanation or justification that captures why a decision was made."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:Requirement a owl:Class ;
+    rdfs:label "Requirement"@en ;
+    rdfs:comment "A requirement that defines a goal, constraint, or expected system behavior."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:TraceableObject a owl:Class ;
+    rdfs:label "Traceable Object"@en ;
+    rdfs:comment "Abstract base class for all traceable entities in the model."@en .
+
+_:N64e8858d3b254328a8757f39e67904bb rdf:first trc:DesignElement ;
+    rdf:rest ( trc:Requirement ) .
+
+_:Nee95fe590c424fe89d4c9c7aa5d732f2 a owl:Class ;
+    owl:unionOf _:N64e8858d3b254328a8757f39e67904bb .
+
