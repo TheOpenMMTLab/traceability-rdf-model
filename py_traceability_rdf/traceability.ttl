@@ -76,12 +76,6 @@ trc:isJustifiedBy a owl:ObjectProperty ;
     rdfs:range trc:Rationale ;
     rdfs:subPropertyOf trc:RationaleRelation .
 
-trc:lifecyclePhase a owl:DatatypeProperty ;
-    rdfs:label "Lifecycle Phase"@en ;
-    rdfs:comment "Requirement lifecycle phase, for example pre-RS or post-RS."@en ;
-    rdfs:domain trc:Requirement ;
-    rdfs:range xsd:string .
-
 trc:modifiedAt a owl:DatatypeProperty ;
     rdfs:label "Modified At"@en ;
     rdfs:comment "Timestamp of the latest modification."@en ;
@@ -121,8 +115,8 @@ trc:rationaleKind a owl:DatatypeProperty ;
 trc:refines a owl:ObjectProperty ;
     rdfs:label "refines"@en ;
     rdfs:comment "Indicates that one artifact refines another artifact."@en ;
-    rdfs:domain _:Nee95fe590c424fe89d4c9c7aa5d732f2 ;
-    rdfs:range _:Nee95fe590c424fe89d4c9c7aa5d732f2 ;
+    rdfs:domain _:N38feed41694f421988925a1dea9ec2a8 ;
+    rdfs:range _:N38feed41694f421988925a1dea9ec2a8 ;
     rdfs:subPropertyOf trc:DependencyRelation .
 
 trc:satisfies a owl:ObjectProperty ;
@@ -252,9 +246,12 @@ trc:TraceableObject a owl:Class ;
     rdfs:label "Traceable Object"@en ;
     rdfs:comment "Abstract base class for all traceable entities in the model."@en .
 
-_:N64e8858d3b254328a8757f39e67904bb rdf:first trc:DesignElement ;
-    rdf:rest ( trc:Requirement ) .
+_:N1191bdd70b0a41248aa255066540021f rdf:first trc:Requirement ;
+    rdf:rest () .
 
-_:Nee95fe590c424fe89d4c9c7aa5d732f2 a owl:Class ;
-    owl:unionOf _:N64e8858d3b254328a8757f39e67904bb .
+_:N9b76e3d8717146d59ce62b074658e080 rdf:first trc:DesignElement ;
+    rdf:rest _:N1191bdd70b0a41248aa255066540021f .
+
+_:N38feed41694f421988925a1dea9ec2a8 a owl:Class ;
+    owl:unionOf _:N9b76e3d8717146d59ce62b074658e080 .
 

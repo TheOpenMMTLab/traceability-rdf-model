@@ -8,6 +8,8 @@ traceability classes and properties for pre- and post-requirement links.
 
 You can visualize the ontology (TTL file) with [WebVOWL](https://service.tib.eu/webvowl/).
 
+![Traceability Ontology](./traceability-draft.ttl.svg)
+
 ## Installation
 
 ```bash
