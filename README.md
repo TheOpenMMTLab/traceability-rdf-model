@@ -73,6 +73,10 @@ Datatype properties:
 
 ### DesignElement
 
+<!-- 
+Is there a realization edge in the graph? 
+At the moment Requirements can refine Design Elements. Is this valid?
+-->
 Design artifact that refines or realizes requirements.
 
 Datatype properties:
@@ -81,6 +85,10 @@ Datatype properties:
 ### CodeModule
 
 Implementation artifact such as a module, class, or function.
+<!--
+Should we refine the "satisfies" and the "verifies" relation? A suggestion: 
+A design element satisfies a requirement. A code module implements a design element. Therefore a correct code module must satisfy requirements by transitivity. Corrrectness of a module is verfied by test cases. Therefore, we could add a verifies edge between test cases and code module. The satisfied requirements would then be given through transitivity. Alternatively we could do it the other way around and add a satisfies edge. Then the verification edge would follow be transitivity. 
+-->
 
 Datatype properties:
 - `programmingLanguage` (xsd:string): Implementation language of the module. Source: [3]
@@ -89,6 +97,10 @@ Datatype properties:
 ### TestCase
 
 Verification artifact used to validate requirements or implementation.
+<!-- 
+Does a testcase really validate a requirement?
+From a tester's point of view, a test case validates an implementation artifact with respect to a requirement.
+-->
 
 Datatype properties:
 - `testType` (xsd:string): Test class (unit, integration, acceptance, etc.). Source: [4]
@@ -119,6 +131,9 @@ Datatype properties:
 ### Stakeholder
 
 Person, role, or organization responsible for creating or changing artifacts.
+<!-- 
+Might it be helpful to differentiate between creation and modification of a document?
+-->
 
 Datatype properties:
 - `stakeholderRole` (xsd:string): Role in lifecycle activities. Source: [1], [2]
