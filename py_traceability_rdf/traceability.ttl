@@ -1,9 +1,13 @@
-@prefix ns1: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix trc: <http://frittenburger.de/ontology/traceability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+trc:EvolutionRelation a owl:ObjectProperty ;
+    rdfs:label "Evolution Relation"@en ;
+    rdfs:comment "Abstract relation category for evolution links."@en .
 
 trc:contains a owl:ObjectProperty ;
     rdfs:label "contains"@en ;
@@ -11,13 +15,6 @@ trc:contains a owl:ObjectProperty ;
     rdfs:domain trc:Requirement ;
     rdfs:range trc:Requirement ;
     rdfs:subPropertyOf trc:DependencyRelation .
-
-trc:copiedFrom a owl:ObjectProperty ;
-    rdfs:label "copied from"@en ;
-    rdfs:comment "Indicates that a requirement was copied from another requirement."@en ;
-    rdfs:domain trc:Requirement ;
-    rdfs:range trc:Requirement ;
-    rdfs:subPropertyOf trc:EvolutionRelation .
 
 trc:createdAt a owl:DatatypeProperty ;
     rdfs:label "Created At"@en ;
@@ -43,13 +40,6 @@ trc:decisionStatus a owl:DatatypeProperty ;
     rdfs:comment "Decision state, for example proposed, accepted, rejected, or deprecated."@en ;
     rdfs:domain trc:Decision ;
     rdfs:range xsd:string .
-
-trc:derivedFrom a owl:ObjectProperty ;
-    rdfs:label "derived from"@en ;
-    rdfs:comment "Indicates that a requirement was derived from another requirement."@en ;
-    rdfs:domain trc:Requirement ;
-    rdfs:range trc:Requirement ;
-    rdfs:subPropertyOf trc:EvolutionRelation .
 
 trc:description a owl:DatatypeProperty ;
     rdfs:label "Description"@en ;
@@ -112,13 +102,6 @@ trc:rationaleKind a owl:DatatypeProperty ;
     rdfs:domain trc:Rationale ;
     rdfs:range xsd:string .
 
-trc:refines a owl:ObjectProperty ;
-    rdfs:label "refines"@en ;
-    rdfs:comment "Indicates that one artifact refines another artifact."@en ;
-    rdfs:domain _:N38feed41694f421988925a1dea9ec2a8 ;
-    rdfs:range _:N38feed41694f421988925a1dea9ec2a8 ;
-    rdfs:subPropertyOf trc:DependencyRelation .
-
 trc:satisfies a owl:ObjectProperty ;
     rdfs:label "satisfies"@en ;
     rdfs:comment "Links a design or code artifact to a requirement it satisfies."@en ;
@@ -179,20 +162,21 @@ trc:verifies a owl:ObjectProperty ;
     rdfs:subPropertyOf trc:SatisfactionRelation .
 
 <https://gitlab.hpi.de/dfriedenberger/traceability> a owl:Ontology ;
-    ns1:creator <https://www.researchgate.net/profile/Dirk_Friedenberger>,
+    dcterms:creator <https://www.researchgate.net/profile/Dirk_Friedenberger>,
         "Dirk Friedenberger" ;
-    ns1:description "An RDF ontology for object-level traceability."@en ;
-    ns1:identifier "http://frittenburger.de/ontology/traceability#" ;
-    ns1:title "Traceability Ontology" ;
+    dcterms:description "An RDF ontology for object-level traceability."@en ;
+    dcterms:identifier "http://frittenburger.de/ontology/traceability#" ;
+    dcterms:title "Traceability Ontology" ;
     owl:versionInfo "0.0.1" .
 
 trc:DependencyRelation a owl:ObjectProperty ;
     rdfs:label "Dependency Relation"@en ;
     rdfs:comment "Abstract relation category for dependency and decomposition links."@en .
 
-trc:EvolutionRelation a owl:ObjectProperty ;
-    rdfs:label "Evolution Relation"@en ;
-    rdfs:comment "Abstract relation category for evolution links."@en .
+trc:DesignElement a owl:Class ;
+    rdfs:label "Design Element"@en ;
+    rdfs:comment "A design artifact that realizes requirements."@en ;
+    rdfs:subClassOf trc:TraceableObject .
 
 trc:RationaleRelation a owl:ObjectProperty ;
     rdfs:label "Rationale Relation"@en ;
@@ -205,11 +189,6 @@ trc:SatisfactionRelation a owl:ObjectProperty ;
 trc:Decision a owl:Class ;
     rdfs:label "Decision"@en ;
     rdfs:comment "A decision made during development or change management."@en ;
-    rdfs:subClassOf trc:TraceableObject .
-
-trc:DesignElement a owl:Class ;
-    rdfs:label "Design Element"@en ;
-    rdfs:comment "A design artifact that refines or realizes requirements."@en ;
     rdfs:subClassOf trc:TraceableObject .
 
 trc:Source a owl:Class ;
@@ -245,13 +224,4 @@ trc:Requirement a owl:Class ;
 trc:TraceableObject a owl:Class ;
     rdfs:label "Traceable Object"@en ;
     rdfs:comment "Abstract base class for all traceable entities in the model."@en .
-
-_:N1191bdd70b0a41248aa255066540021f rdf:first trc:Requirement ;
-    rdf:rest () .
-
-_:N9b76e3d8717146d59ce62b074658e080 rdf:first trc:DesignElement ;
-    rdf:rest _:N1191bdd70b0a41248aa255066540021f .
-
-_:N38feed41694f421988925a1dea9ec2a8 a owl:Class ;
-    owl:unionOf _:N9b76e3d8717146d59ce62b074658e080 .
 

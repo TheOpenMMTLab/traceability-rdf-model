@@ -73,11 +73,7 @@ Datatype properties:
 
 ### DesignElement
 
-<!-- 
-Is there a realization edge in the graph? 
-At the moment Requirements can refine Design Elements. Is this valid?
--->
-Design artifact that refines or realizes requirements.
+Design artifact that realizes requirements.
 
 Datatype properties:
 - `designType` (xsd:string): Design kind (for example architecture block, interface, SysML element). Source: [4]
@@ -145,10 +141,7 @@ Datatype properties:
 | --- | --- | --- | --- |
 | satisfies | Satisfaction | DesignElement OR CodeModule | Requirement |
 | verifies | Satisfaction | TestCase | Requirement OR CodeModule |
-| refines | Dependency | DesignElement OR Requirement | DesignElement OR Requirement |
 | contains | Dependency | Requirement | Requirement |
-| derivedFrom | Evolution | Requirement | Requirement |
-| copiedFrom | Evolution | Requirement | Requirement |
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |
 | originatesFrom | - | Rationale | Source |

@@ -27,9 +27,6 @@ class Traceability(DefinedNamespace):
     DependencyRelation: URIRef = ontology.get_object_property("#DependencyRelation")
     RationaleRelation: URIRef = ontology.get_object_property("#RationaleRelation")
 
-    derivedFrom: URIRef = ontology.get_object_property("#derivedFrom")
-    copiedFrom: URIRef = ontology.get_object_property("#copiedFrom")
-    refines: URIRef = ontology.get_object_property("#refines")
     contains: URIRef = ontology.get_object_property("#contains")
     satisfies: URIRef = ontology.get_object_property("#satisfies")
     verifies: URIRef = ontology.get_object_property("#verifies")

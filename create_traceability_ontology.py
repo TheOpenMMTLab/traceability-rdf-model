@@ -48,7 +48,7 @@ g.add((NS.Requirement, RDFS.subClassOf, NS.TraceableObject))
 
 g.add((NS.DesignElement, RDF.type, OWL.Class))
 g.add((NS.DesignElement, RDFS.label, Literal("Design Element", lang='en')))
-g.add((NS.DesignElement, RDFS.comment, Literal("A design artifact that refines or realizes requirements.", lang='en')))
+g.add((NS.DesignElement, RDFS.comment, Literal("A design artifact that realizes requirements.", lang='en')))
 g.add((NS.DesignElement, RDFS.subClassOf, NS.TraceableObject))
 
 
@@ -234,15 +234,6 @@ g.add((NS.verifies, RDFS.label, Literal("verifies", lang='en')))
 g.add((NS.verifies, RDFS.comment, Literal("Links a test case to a requirement or code module it verifies.", lang='en')))
 
 # Dependency
-design_or_requirement = create_union([NS.DesignElement, NS.Requirement])
-
-g.add((NS.refines, RDF.type, OWL.ObjectProperty))
-g.add((NS.refines, RDFS.subPropertyOf, NS.DependencyRelation))
-g.add((NS.refines, RDFS.domain, design_or_requirement))
-g.add((NS.refines, RDFS.range, design_or_requirement))
-g.add((NS.refines, RDFS.label, Literal("refines", lang='en')))
-g.add((NS.refines, RDFS.comment, Literal("Indicates that one artifact refines another artifact.", lang='en')))
-
 g.add((NS.contains, RDF.type, OWL.ObjectProperty))
 g.add((NS.contains, RDFS.subPropertyOf, NS.DependencyRelation))
 g.add((NS.contains, RDFS.domain, NS.Requirement))
@@ -251,20 +242,6 @@ g.add((NS.contains, RDFS.label, Literal("contains", lang='en')))
 g.add((NS.contains, RDFS.comment, Literal("Represents hierarchical containment between requirements.", lang='en')))
 
 # Evolution
-g.add((NS.derivedFrom, RDF.type, OWL.ObjectProperty))
-g.add((NS.derivedFrom, RDFS.subPropertyOf, NS.EvolutionRelation))
-g.add((NS.derivedFrom, RDFS.domain, NS.Requirement))
-g.add((NS.derivedFrom, RDFS.range, NS.Requirement))
-g.add((NS.derivedFrom, RDFS.label, Literal("derived from", lang='en')))
-g.add((NS.derivedFrom, RDFS.comment, Literal("Indicates that a requirement was derived from another requirement.", lang='en')))
-
-g.add((NS.copiedFrom, RDF.type, OWL.ObjectProperty))
-g.add((NS.copiedFrom, RDFS.subPropertyOf, NS.EvolutionRelation))
-g.add((NS.copiedFrom, RDFS.domain, NS.Requirement))
-g.add((NS.copiedFrom, RDFS.range, NS.Requirement))
-g.add((NS.copiedFrom, RDFS.label, Literal("copied from", lang='en')))
-g.add((NS.copiedFrom, RDFS.comment, Literal("Indicates that a requirement was copied from another requirement.", lang='en')))
-
 # Rationale
 g.add((NS.tracesTo, RDF.type, OWL.ObjectProperty))
 g.add((NS.tracesTo, RDFS.subPropertyOf, NS.RationaleRelation))
