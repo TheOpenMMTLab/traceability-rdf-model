@@ -51,19 +51,24 @@ g.add((test, Traceability.verifies, module))
 # Rationale and provenance
 g.add((decision, Traceability.isJustifiedBy, rationale))
 g.add((rationale, Traceability.originatesFrom, source))
-g.add((decision, Traceability.createdBy, stakeholder))
+g.add((decision, Traceability.involvedIn, stakeholder))
 ```
 
 ## Traceable Objects
 
-### TraceableObject
+### IdentifiableObject
 
-Abstract base class for all traceable entities.
+Abstract base class for entities with stable identity metadata.
 
 Datatype properties:
 - `identifier` (xsd:string): Stable unique key for cross-artifact traceability. Source: [2], [3]
 - `title` (xsd:string): Human-readable object title used in trace navigation. Source: [2]
-- `description` (xsd:string): Context and intent text for interpretation and maintenance. Source: [1], [3]
+
+### TraceableObject
+
+Abstract base class for all traceable entities. Subclass of `IdentifiableObject`.
+
+Datatype properties:
 - `createdAt` (xsd:dateTime): Creation timestamp for lifecycle reconstruction. Source: [1], [3]
 - `modifiedAt` (xsd:dateTime): Last modification timestamp for change tracking. Source: [1], [3]
 
@@ -121,10 +126,7 @@ Datatype properties:
 
 ### Stakeholder
 
-Person, role, or organization responsible for creating or changing artifacts.
-<!-- 
-Might it be helpful to differentiate between creation and modification of a document?
--->
+Person, role, or organization responsible for creating or changing artifacts. Subclass of `IdentifiableObject`.
 
 Datatype properties:
 - `stakeholderRole` (xsd:string): Role in lifecycle activities. Source: [1], [2]
@@ -141,7 +143,7 @@ Datatype properties:
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |
 | originatesFrom | - | Rationale | Source |
-| createdBy | - | Decision OR Requirement | Stakeholder |
+| involvedIn | - | TraceableObject | Stakeholder |
 
 ## Development
 

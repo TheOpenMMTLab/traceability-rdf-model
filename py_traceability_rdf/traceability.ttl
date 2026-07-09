@@ -1,6 +1,5 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix trc: <http://frittenburger.de/ontology/traceability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -22,13 +21,6 @@ trc:createdAt a owl:DatatypeProperty ;
     rdfs:domain trc:TraceableObject ;
     rdfs:range xsd:dateTime .
 
-trc:createdBy a owl:ObjectProperty ;
-    rdfs:label "created by"@en ;
-    rdfs:comment "Links a decision or requirement to the stakeholder who created it."@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( trc:Decision trc:Requirement ) ] ;
-    rdfs:range trc:Stakeholder .
-
 trc:criticality a owl:DatatypeProperty ;
     rdfs:label "Criticality"@en ;
     rdfs:comment "Criticality level used for prioritization and compliance planning."@en ;
@@ -41,12 +33,6 @@ trc:decisionStatus a owl:DatatypeProperty ;
     rdfs:domain trc:Decision ;
     rdfs:range xsd:string .
 
-trc:description a owl:DatatypeProperty ;
-    rdfs:label "Description"@en ;
-    rdfs:comment "Textual description used to capture context and intent."@en ;
-    rdfs:domain trc:TraceableObject ;
-    rdfs:range xsd:string .
-
 trc:designType a owl:DatatypeProperty ;
     rdfs:label "Design Type"@en ;
     rdfs:comment "Design element kind, for example architecture block, interface, or SysML element."@en ;
@@ -56,7 +42,7 @@ trc:designType a owl:DatatypeProperty ;
 trc:identifier a owl:DatatypeProperty ;
     rdfs:label "Identifier"@en ;
     rdfs:comment "Stable unique key of a traceable object."@en ;
-    rdfs:domain trc:TraceableObject ;
+    rdfs:domain trc:IdentifiableObject ;
     rdfs:range xsd:string .
 
 trc:implements a owl:ObjectProperty ;
@@ -65,6 +51,12 @@ trc:implements a owl:ObjectProperty ;
     rdfs:domain trc:CodeModule ;
     rdfs:range trc:DesignElement ;
     rdfs:subPropertyOf trc:DependencyRelation .
+
+trc:involvedIn a owl:ObjectProperty ;
+    rdfs:label "involved in"@en ;
+    rdfs:comment "Links a traceable object to a stakeholder involved in it."@en ;
+    rdfs:domain trc:TraceableObject ;
+    rdfs:range trc:Stakeholder .
 
 trc:isJustifiedBy a owl:ObjectProperty ;
     rdfs:label "is justified by"@en ;
@@ -143,7 +135,7 @@ trc:testType a owl:DatatypeProperty ;
 trc:title a owl:DatatypeProperty ;
     rdfs:label "Title"@en ;
     rdfs:comment "Human-readable title of a traceable object."@en ;
-    rdfs:domain trc:TraceableObject ;
+    rdfs:domain trc:IdentifiableObject ;
     rdfs:range xsd:string .
 
 trc:tracesTo a owl:ObjectProperty ;
@@ -174,6 +166,11 @@ trc:verifies a owl:ObjectProperty ;
     dcterms:title "Traceability Ontology" ;
     owl:versionInfo "0.0.1" .
 
+trc:Decision a owl:Class ;
+    rdfs:label "Decision"@en ;
+    rdfs:comment "A decision made during development or change management."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
 trc:DependencyRelation a owl:ObjectProperty ;
     rdfs:label "Dependency Relation"@en ;
     rdfs:comment "Abstract relation category for dependency and decomposition links."@en .
@@ -185,11 +182,6 @@ trc:RationaleRelation a owl:ObjectProperty ;
 trc:SatisfactionRelation a owl:ObjectProperty ;
     rdfs:label "Satisfaction Relation"@en ;
     rdfs:comment "Abstract relation category for satisfaction and verification links."@en .
-
-trc:Decision a owl:Class ;
-    rdfs:label "Decision"@en ;
-    rdfs:comment "A decision made during development or change management."@en ;
-    rdfs:subClassOf trc:TraceableObject .
 
 trc:DesignElement a owl:Class ;
     rdfs:label "Design Element"@en ;
@@ -204,7 +196,7 @@ trc:Source a owl:Class ;
 trc:Stakeholder a owl:Class ;
     rdfs:label "Stakeholder"@en ;
     rdfs:comment "A person, role, or organization responsible for creating or changing artifacts."@en ;
-    rdfs:subClassOf trc:TraceableObject .
+    rdfs:subClassOf trc:IdentifiableObject .
 
 trc:TestCase a owl:Class ;
     rdfs:label "Test Case"@en ;
@@ -215,6 +207,10 @@ trc:CodeModule a owl:Class ;
     rdfs:label "Code Module"@en ;
     rdfs:comment "A software implementation artifact such as a module, class, or function."@en ;
     rdfs:subClassOf trc:TraceableObject .
+
+trc:IdentifiableObject a owl:Class ;
+    rdfs:label "Identifiable Object"@en ;
+    rdfs:comment "Abstract base class for entities with identifier and title metadata."@en .
 
 trc:Rationale a owl:Class ;
     rdfs:label "Rationale"@en ;
@@ -228,5 +224,6 @@ trc:Requirement a owl:Class ;
 
 trc:TraceableObject a owl:Class ;
     rdfs:label "Traceable Object"@en ;
-    rdfs:comment "Abstract base class for all traceable entities in the model."@en .
+    rdfs:comment "Abstract base class for all traceable entities in the model."@en ;
+    rdfs:subClassOf trc:IdentifiableObject .
 

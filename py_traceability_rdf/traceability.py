@@ -12,6 +12,7 @@ class Traceability(DefinedNamespace):
 
     _NS = ontology.get_namespace()
 
+    IdentifiableObject: URIRef = ontology.get_class("#IdentifiableObject")
     TraceableObject: URIRef = ontology.get_class("#TraceableObject")
     Requirement: URIRef = ontology.get_class("#Requirement")
     DesignElement: URIRef = ontology.get_class("#DesignElement")
@@ -34,11 +35,10 @@ class Traceability(DefinedNamespace):
     tracesTo: URIRef = ontology.get_object_property("#tracesTo")
     isJustifiedBy: URIRef = ontology.get_object_property("#isJustifiedBy")
     originatesFrom: URIRef = ontology.get_object_property("#originatesFrom")
-    createdBy: URIRef = ontology.get_object_property("#createdBy")
+    involvedIn: URIRef = ontology.get_object_property("#involvedIn")
 
     identifier: URIRef = ontology.get_datatype_property("#identifier")
     title: URIRef = ontology.get_datatype_property("#title")
-    description: URIRef = ontology.get_datatype_property("#description")
     createdAt: URIRef = ontology.get_datatype_property("#createdAt")
     modifiedAt: URIRef = ontology.get_datatype_property("#modifiedAt")
     criticality: URIRef = ontology.get_datatype_property("#criticality")

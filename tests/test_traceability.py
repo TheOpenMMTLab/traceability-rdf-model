@@ -8,6 +8,7 @@ def test_namespace_exists():
 
 
 def test_classes_exist():
+    assert isinstance(Traceability.IdentifiableObject, URIRef)
     assert isinstance(Traceability.Requirement, URIRef)
     assert isinstance(Traceability.DesignElement, URIRef)
     assert isinstance(Traceability.CodeModule, URIRef)
@@ -19,6 +20,7 @@ def test_object_properties_exist():
     assert isinstance(Traceability.satisfies, URIRef)
     assert isinstance(Traceability.verifies, URIRef)
     assert isinstance(Traceability.implements, URIRef)
+    assert isinstance(Traceability.involvedIn, URIRef)
     assert isinstance(Traceability.isJustifiedBy, URIRef)
 
 
@@ -36,15 +38,19 @@ def test_workflow():
     design = URIRef("http://example.org#design_x")
     module = URIRef("http://example.org#module_x")
     test = URIRef("http://example.org#test_x")
+    stakeholder = URIRef("http://example.org#stakeholder_x")
 
     g.add((req, RDF.type, Traceability.Requirement))
     g.add((design, RDF.type, Traceability.DesignElement))
     g.add((module, RDF.type, Traceability.CodeModule))
     g.add((test, RDF.type, Traceability.TestCase))
+    g.add((stakeholder, RDF.type, Traceability.Stakeholder))
     g.add((design, Traceability.satisfies, req))
     g.add((module, Traceability.implements, design))
     g.add((test, Traceability.verifies, module))
+    g.add((design, Traceability.involvedIn, stakeholder))
 
     assert (design, Traceability.satisfies, req) in g
     assert (module, Traceability.implements, design) in g
     assert (test, Traceability.verifies, module) in g
+    assert (design, Traceability.involvedIn, stakeholder) in g

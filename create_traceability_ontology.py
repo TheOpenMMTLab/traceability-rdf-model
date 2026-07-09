@@ -36,9 +36,14 @@ g.add((ontology, DCTERMS.identifier, Literal(NS)))
 # concepts
 
 # Model Taxonomy
+g.add((NS.IdentifiableObject, RDF.type, OWL.Class))
+g.add((NS.IdentifiableObject, RDFS.label, Literal("Identifiable Object", lang='en')))
+g.add((NS.IdentifiableObject, RDFS.comment, Literal("Abstract base class for entities with identifier and title metadata.", lang='en')))
+
 g.add((NS.TraceableObject, RDF.type, OWL.Class))
 g.add((NS.TraceableObject, RDFS.label, Literal("Traceable Object", lang='en')))
 g.add((NS.TraceableObject, RDFS.comment, Literal("Abstract base class for all traceable entities in the model.", lang='en')))
+g.add((NS.TraceableObject, RDFS.subClassOf, NS.IdentifiableObject))
 
 
 g.add((NS.Requirement, RDF.type, OWL.Class))
@@ -82,26 +87,20 @@ g.add((NS.Source, RDFS.subClassOf, NS.TraceableObject))
 g.add((NS.Stakeholder, RDF.type, OWL.Class))
 g.add((NS.Stakeholder, RDFS.label, Literal("Stakeholder", lang='en')))
 g.add((NS.Stakeholder, RDFS.comment, Literal("A person, role, or organization responsible for creating or changing artifacts.", lang='en')))
-g.add((NS.Stakeholder, RDFS.subClassOf, NS.TraceableObject))
+g.add((NS.Stakeholder, RDFS.subClassOf, NS.IdentifiableObject))
 
 # Datatype properties
 g.add((NS.identifier, RDF.type, OWL.DatatypeProperty))
-g.add((NS.identifier, RDFS.domain, NS.TraceableObject))
+g.add((NS.identifier, RDFS.domain, NS.IdentifiableObject))
 g.add((NS.identifier, RDFS.range, XSD.string))
 g.add((NS.identifier, RDFS.label, Literal("Identifier", lang='en')))
 g.add((NS.identifier, RDFS.comment, Literal("Stable unique key of a traceable object.", lang='en')))
 
 g.add((NS.title, RDF.type, OWL.DatatypeProperty))
-g.add((NS.title, RDFS.domain, NS.TraceableObject))
+g.add((NS.title, RDFS.domain, NS.IdentifiableObject))
 g.add((NS.title, RDFS.range, XSD.string))
 g.add((NS.title, RDFS.label, Literal("Title", lang='en')))
 g.add((NS.title, RDFS.comment, Literal("Human-readable title of a traceable object.", lang='en')))
-
-g.add((NS.description, RDF.type, OWL.DatatypeProperty))
-g.add((NS.description, RDFS.domain, NS.TraceableObject))
-g.add((NS.description, RDFS.range, XSD.string))
-g.add((NS.description, RDFS.label, Literal("Description", lang='en')))
-g.add((NS.description, RDFS.comment, Literal("Textual description used to capture context and intent.", lang='en')))
 
 g.add((NS.createdAt, RDF.type, OWL.DatatypeProperty))
 g.add((NS.createdAt, RDFS.domain, NS.TraceableObject))
@@ -269,13 +268,10 @@ g.add((NS.originatesFrom, RDFS.label, Literal("originates from", lang='en')))
 g.add((NS.originatesFrom, RDFS.comment, Literal("Links rationale information to the source it originates from.", lang='en')))
 
 
-# Domain = Decision OR Requirement
-decision_or_requirement = create_union([NS.Decision, NS.Requirement])
-
-g.add((NS.createdBy, RDF.type, OWL.ObjectProperty))
-g.add((NS.createdBy, RDFS.domain, decision_or_requirement))
-g.add((NS.createdBy, RDFS.range, NS.Stakeholder))
-g.add((NS.createdBy, RDFS.label, Literal("created by", lang='en')))
-g.add((NS.createdBy, RDFS.comment, Literal("Links a decision or requirement to the stakeholder who created it.", lang='en')))
+g.add((NS.involvedIn, RDF.type, OWL.ObjectProperty))
+g.add((NS.involvedIn, RDFS.domain, NS.TraceableObject))
+g.add((NS.involvedIn, RDFS.range, NS.Stakeholder))
+g.add((NS.involvedIn, RDFS.label, Literal("involved in", lang='en')))
+g.add((NS.involvedIn, RDFS.comment, Literal("Links a traceable object to a stakeholder involved in it.", lang='en')))
 
 g.serialize(destination="py_traceability_rdf/traceability.ttl", format="turtle")
