@@ -18,6 +18,7 @@ def test_classes_exist():
 def test_object_properties_exist():
     assert isinstance(Traceability.satisfies, URIRef)
     assert isinstance(Traceability.verifies, URIRef)
+    assert isinstance(Traceability.implements, URIRef)
     assert isinstance(Traceability.isJustifiedBy, URIRef)
 
 
@@ -33,13 +34,17 @@ def test_workflow():
 
     req = URIRef("http://example.org#req_x")
     design = URIRef("http://example.org#design_x")
+    module = URIRef("http://example.org#module_x")
     test = URIRef("http://example.org#test_x")
 
     g.add((req, RDF.type, Traceability.Requirement))
     g.add((design, RDF.type, Traceability.DesignElement))
+    g.add((module, RDF.type, Traceability.CodeModule))
     g.add((test, RDF.type, Traceability.TestCase))
     g.add((design, Traceability.satisfies, req))
-    g.add((test, Traceability.verifies, req))
+    g.add((module, Traceability.implements, design))
+    g.add((test, Traceability.verifies, module))
 
     assert (design, Traceability.satisfies, req) in g
-    assert (test, Traceability.verifies, req) in g
+    assert (module, Traceability.implements, design) in g
+    assert (test, Traceability.verifies, module) in g

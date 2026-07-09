@@ -59,6 +59,13 @@ trc:identifier a owl:DatatypeProperty ;
     rdfs:domain trc:TraceableObject ;
     rdfs:range xsd:string .
 
+trc:implements a owl:ObjectProperty ;
+    rdfs:label "implements"@en ;
+    rdfs:comment "Links a code module to the design element it implements."@en ;
+    rdfs:domain trc:CodeModule ;
+    rdfs:range trc:DesignElement ;
+    rdfs:subPropertyOf trc:DependencyRelation .
+
 trc:isJustifiedBy a owl:ObjectProperty ;
     rdfs:label "is justified by"@en ;
     rdfs:comment "Links a decision to the rationale that justifies it."@en ;
@@ -104,9 +111,8 @@ trc:rationaleKind a owl:DatatypeProperty ;
 
 trc:satisfies a owl:ObjectProperty ;
     rdfs:label "satisfies"@en ;
-    rdfs:comment "Links a design or code artifact to a requirement it satisfies."@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( trc:DesignElement trc:CodeModule ) ] ;
+    rdfs:comment "Links a design element to a requirement it satisfies."@en ;
+    rdfs:domain trc:DesignElement ;
     rdfs:range trc:Requirement ;
     rdfs:subPropertyOf trc:SatisfactionRelation .
 
@@ -155,10 +161,9 @@ trc:verificationStatus a owl:DatatypeProperty ;
 
 trc:verifies a owl:ObjectProperty ;
     rdfs:label "verifies"@en ;
-    rdfs:comment "Links a test case to a requirement or code module it verifies."@en ;
+    rdfs:comment "Links a test case to a code module it verifies."@en ;
     rdfs:domain trc:TestCase ;
-    rdfs:range [ a owl:Class ;
-            owl:unionOf ( trc:Requirement trc:CodeModule ) ] ;
+    rdfs:range trc:CodeModule ;
     rdfs:subPropertyOf trc:SatisfactionRelation .
 
 <https://gitlab.hpi.de/dfriedenberger/traceability> a owl:Ontology ;
@@ -173,11 +178,6 @@ trc:DependencyRelation a owl:ObjectProperty ;
     rdfs:label "Dependency Relation"@en ;
     rdfs:comment "Abstract relation category for dependency and decomposition links."@en .
 
-trc:DesignElement a owl:Class ;
-    rdfs:label "Design Element"@en ;
-    rdfs:comment "A design artifact that realizes requirements."@en ;
-    rdfs:subClassOf trc:TraceableObject .
-
 trc:RationaleRelation a owl:ObjectProperty ;
     rdfs:label "Rationale Relation"@en ;
     rdfs:comment "Abstract relation category for justification-related links."@en .
@@ -189,6 +189,11 @@ trc:SatisfactionRelation a owl:ObjectProperty ;
 trc:Decision a owl:Class ;
     rdfs:label "Decision"@en ;
     rdfs:comment "A decision made during development or change management."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:DesignElement a owl:Class ;
+    rdfs:label "Design Element"@en ;
+    rdfs:comment "A design artifact that realizes requirements."@en ;
     rdfs:subClassOf trc:TraceableObject .
 
 trc:Source a owl:Class ;

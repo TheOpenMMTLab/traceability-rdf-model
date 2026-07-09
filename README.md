@@ -32,6 +32,7 @@ rationale = URIRef("http://example.org#rationale_1")
 source = URIRef("http://example.org#source_1")
 stakeholder = URIRef("http://example.org#stakeholder_1")
 test = URIRef("http://example.org#test_1")
+module = URIRef("http://example.org#module_1")
 
 g.add((req, RDF.type, Traceability.Requirement))
 g.add((design, RDF.type, Traceability.DesignElement))
@@ -40,10 +41,12 @@ g.add((rationale, RDF.type, Traceability.Rationale))
 g.add((source, RDF.type, Traceability.Source))
 g.add((stakeholder, RDF.type, Traceability.Stakeholder))
 g.add((test, RDF.type, Traceability.TestCase))
+g.add((module, RDF.type, Traceability.CodeModule))
 
 # Satisfaction
 g.add((design, Traceability.satisfies, req))
-g.add((test, Traceability.verifies, req))
+g.add((module, Traceability.implements, design))
+g.add((test, Traceability.verifies, module))
 
 # Rationale and provenance
 g.add((decision, Traceability.isJustifiedBy, rationale))
@@ -81,10 +84,6 @@ Datatype properties:
 ### CodeModule
 
 Implementation artifact such as a module, class, or function.
-<!--
-Should we refine the "satisfies" and the "verifies" relation? A suggestion: 
-A design element satisfies a requirement. A code module implements a design element. Therefore a correct code module must satisfy requirements by transitivity. Corrrectness of a module is verfied by test cases. Therefore, we could add a verifies edge between test cases and code module. The satisfied requirements would then be given through transitivity. Alternatively we could do it the other way around and add a satisfies edge. Then the verification edge would follow be transitivity. 
--->
 
 Datatype properties:
 - `programmingLanguage` (xsd:string): Implementation language of the module. Source: [3]
@@ -93,10 +92,6 @@ Datatype properties:
 ### TestCase
 
 Verification artifact used to validate requirements or implementation.
-<!-- 
-Does a testcase really validate a requirement?
-From a tester's point of view, a test case validates an implementation artifact with respect to a requirement.
--->
 
 Datatype properties:
 - `testType` (xsd:string): Test class (unit, integration, acceptance, etc.). Source: [4]
@@ -139,8 +134,9 @@ Datatype properties:
 
 | Relation | classification [2] | Domain | Range |
 | --- | --- | --- | --- |
-| satisfies | Satisfaction | DesignElement OR CodeModule | Requirement |
-| verifies | Satisfaction | TestCase | Requirement OR CodeModule |
+| satisfies | Satisfaction | DesignElement | Requirement |
+| verifies | Satisfaction | TestCase | CodeModule |
+| implements | Dependency | CodeModule | DesignElement |
 | contains | Dependency | Requirement | Requirement |
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |

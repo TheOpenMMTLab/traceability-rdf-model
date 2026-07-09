@@ -215,23 +215,26 @@ g.add((NS.RationaleRelation, RDFS.comment, Literal("Abstract relation category f
 # Explicit relation definition for links
 
 # Satisfaction
-design_or_code = create_union([NS.DesignElement, NS.CodeModule])
-
 g.add((NS.satisfies, RDF.type, OWL.ObjectProperty))
 g.add((NS.satisfies, RDFS.subPropertyOf, NS.SatisfactionRelation))
-g.add((NS.satisfies, RDFS.domain, design_or_code))
+g.add((NS.satisfies, RDFS.domain, NS.DesignElement))
 g.add((NS.satisfies, RDFS.range, NS.Requirement))
 g.add((NS.satisfies, RDFS.label, Literal("satisfies", lang='en')))
-g.add((NS.satisfies, RDFS.comment, Literal("Links a design or code artifact to a requirement it satisfies.", lang='en')))
-
-requirement_or_code = create_union([NS.Requirement, NS.CodeModule])
+g.add((NS.satisfies, RDFS.comment, Literal("Links a design element to a requirement it satisfies.", lang='en')))
 
 g.add((NS.verifies, RDF.type, OWL.ObjectProperty))
 g.add((NS.verifies, RDFS.subPropertyOf, NS.SatisfactionRelation))
 g.add((NS.verifies, RDFS.domain, NS.TestCase))
-g.add((NS.verifies, RDFS.range, requirement_or_code))
+g.add((NS.verifies, RDFS.range, NS.CodeModule))
 g.add((NS.verifies, RDFS.label, Literal("verifies", lang='en')))
-g.add((NS.verifies, RDFS.comment, Literal("Links a test case to a requirement or code module it verifies.", lang='en')))
+g.add((NS.verifies, RDFS.comment, Literal("Links a test case to a code module it verifies.", lang='en')))
+
+g.add((NS.implements, RDF.type, OWL.ObjectProperty))
+g.add((NS.implements, RDFS.subPropertyOf, NS.DependencyRelation))
+g.add((NS.implements, RDFS.domain, NS.CodeModule))
+g.add((NS.implements, RDFS.range, NS.DesignElement))
+g.add((NS.implements, RDFS.label, Literal("implements", lang='en')))
+g.add((NS.implements, RDFS.comment, Literal("Links a code module to the design element it implements.", lang='en')))
 
 # Dependency
 g.add((NS.contains, RDF.type, OWL.ObjectProperty))
