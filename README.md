@@ -51,7 +51,7 @@ g.add((test, Traceability.verifies, module))
 # Rationale and provenance
 g.add((decision, Traceability.isJustifiedBy, rationale))
 g.add((rationale, Traceability.originatesFrom, source))
-g.add((decision, Traceability.involvedIn, stakeholder))
+g.add((decision, Traceability.involves, stakeholder))
 ```
 
 ## Traceable Objects
@@ -143,7 +143,7 @@ Datatype properties:
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |
 | originatesFrom | - | Rationale | Source |
-| involvedIn | - | TraceableObject | Stakeholder |
+| involves | - | TraceableObject | Stakeholder |
 
 ## Development
 

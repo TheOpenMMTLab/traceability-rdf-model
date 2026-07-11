@@ -35,7 +35,7 @@ class Traceability(DefinedNamespace):
     tracesTo: URIRef = ontology.get_object_property("#tracesTo")
     isJustifiedBy: URIRef = ontology.get_object_property("#isJustifiedBy")
     originatesFrom: URIRef = ontology.get_object_property("#originatesFrom")
-    involvedIn: URIRef = ontology.get_object_property("#involvedIn")
+    involves: URIRef = ontology.get_object_property("#involves")
 
     identifier: URIRef = ontology.get_datatype_property("#identifier")
     title: URIRef = ontology.get_datatype_property("#title")

@@ -190,7 +190,7 @@ g.add((NS.organization, RDFS.comment, Literal("Organization or team affiliation 
 # Relations
 
 # Four categories (Satisfaction, Dependency, Evolution, Rationale) by Ramesh & Jarke (2001)
-# Abstract evolution relation 
+# Abstract evolution relation
 g.add((NS.EvolutionRelation, RDF.type, OWL.ObjectProperty))
 g.add((NS.EvolutionRelation, RDFS.label, Literal("Evolution Relation", lang='en')))
 g.add((NS.EvolutionRelation, RDFS.comment, Literal("Abstract relation category for evolution links.", lang='en')))
@@ -268,10 +268,10 @@ g.add((NS.originatesFrom, RDFS.label, Literal("originates from", lang='en')))
 g.add((NS.originatesFrom, RDFS.comment, Literal("Links rationale information to the source it originates from.", lang='en')))
 
 
-g.add((NS.involvedIn, RDF.type, OWL.ObjectProperty))
-g.add((NS.involvedIn, RDFS.domain, NS.TraceableObject))
-g.add((NS.involvedIn, RDFS.range, NS.Stakeholder))
-g.add((NS.involvedIn, RDFS.label, Literal("involved in", lang='en')))
-g.add((NS.involvedIn, RDFS.comment, Literal("Links a traceable object to a stakeholder involved in it.", lang='en')))
+g.add((NS.involves, RDF.type, OWL.ObjectProperty))
+g.add((NS.involves, RDFS.domain, NS.TraceableObject))
+g.add((NS.involves, RDFS.range, NS.Stakeholder))
+g.add((NS.involves, RDFS.label, Literal("involves", lang='en')))
+g.add((NS.involves, RDFS.comment, Literal("Links a traceable object to a stakeholder involved in it.", lang='en')))
 
 g.serialize(destination="py_traceability_rdf/traceability.ttl", format="turtle")

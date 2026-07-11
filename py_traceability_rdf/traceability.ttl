@@ -52,8 +52,8 @@ trc:implements a owl:ObjectProperty ;
     rdfs:range trc:DesignElement ;
     rdfs:subPropertyOf trc:DependencyRelation .
 
-trc:involvedIn a owl:ObjectProperty ;
-    rdfs:label "involved in"@en ;
+trc:involves a owl:ObjectProperty ;
+    rdfs:label "involves"@en ;
     rdfs:comment "Links a traceable object to a stakeholder involved in it."@en ;
     rdfs:domain trc:TraceableObject ;
     rdfs:range trc:Stakeholder .

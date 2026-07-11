@@ -20,7 +20,7 @@ def test_object_properties_exist():
     assert isinstance(Traceability.satisfies, URIRef)
     assert isinstance(Traceability.verifies, URIRef)
     assert isinstance(Traceability.implements, URIRef)
-    assert isinstance(Traceability.involvedIn, URIRef)
+    assert isinstance(Traceability.involves, URIRef)
     assert isinstance(Traceability.isJustifiedBy, URIRef)
 
 
@@ -48,9 +48,9 @@ def test_workflow():
     g.add((design, Traceability.satisfies, req))
     g.add((module, Traceability.implements, design))
     g.add((test, Traceability.verifies, module))
-    g.add((design, Traceability.involvedIn, stakeholder))
+    g.add((design, Traceability.involves, stakeholder))
 
     assert (design, Traceability.satisfies, req) in g
     assert (module, Traceability.implements, design) in g
     assert (test, Traceability.verifies, module) in g
-    assert (design, Traceability.involvedIn, stakeholder) in g
+    assert (design, Traceability.involves, stakeholder) in g
