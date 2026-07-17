@@ -8,7 +8,7 @@ traceability classes and properties for pre- and post-requirement links.
 
 You can visualize the ontology (TTL file) with [WebVOWL](https://service.tib.eu/webvowl/).
 
-![Traceability Ontology](./traceability-draft.ttl.svg)
+![Traceability Ontology](./traceability.ttl.svg)
 
 ## Installation
 
@@ -32,6 +32,7 @@ rationale = URIRef("http://example.org#rationale_1")
 source = URIRef("http://example.org#source_1")
 stakeholder = URIRef("http://example.org#stakeholder_1")
 test = URIRef("http://example.org#test_1")
+module = URIRef("http://example.org#module_1")
 
 g.add((req, RDF.type, Traceability.Requirement))
 g.add((design, RDF.type, Traceability.DesignElement))
@@ -40,27 +41,34 @@ g.add((rationale, RDF.type, Traceability.Rationale))
 g.add((source, RDF.type, Traceability.Source))
 g.add((stakeholder, RDF.type, Traceability.Stakeholder))
 g.add((test, RDF.type, Traceability.TestCase))
+g.add((module, RDF.type, Traceability.Implementation))
 
 # Satisfaction
 g.add((design, Traceability.satisfies, req))
-g.add((test, Traceability.verifies, req))
+g.add((module, Traceability.realizes, design))
+g.add((test, Traceability.verifies, module))
 
 # Rationale and provenance
 g.add((decision, Traceability.isJustifiedBy, rationale))
 g.add((rationale, Traceability.originatesFrom, source))
-g.add((decision, Traceability.createdBy, stakeholder))
+g.add((decision, Traceability.involves, stakeholder))
 ```
 
 ## Traceable Objects
 
-### TraceableObject
+### IdentifiableObject
 
-Abstract base class for all traceable entities.
+Abstract base class for entities with stable identity metadata.
 
 Datatype properties:
 - `identifier` (xsd:string): Stable unique key for cross-artifact traceability. Source: [2], [3]
 - `title` (xsd:string): Human-readable object title used in trace navigation. Source: [2]
-- `description` (xsd:string): Context and intent text for interpretation and maintenance. Source: [1], [3]
+
+### TraceableObject
+
+Abstract base class for all traceable entities. Subclass of `IdentifiableObject`.
+
+Datatype properties:
 - `createdAt` (xsd:dateTime): Creation timestamp for lifecycle reconstruction. Source: [1], [3]
 - `modifiedAt` (xsd:dateTime): Last modification timestamp for change tracking. Source: [1], [3]
 
@@ -73,18 +81,18 @@ Datatype properties:
 
 ### DesignElement
 
-Design artifact that refines or realizes requirements.
+Design artifact that realizes requirements.
 
 Datatype properties:
 - `designType` (xsd:string): Design kind (for example architecture block, interface, SysML element). Source: [4]
 
-### CodeModule
+### Implementation
 
 Implementation artifact such as a module, class, or function.
 
 Datatype properties:
-- `programmingLanguage` (xsd:string): Implementation language of the module. Source: [3]
-- `modulePath` (xsd:string): Repository or file path of the module. Source: [3]
+- `implementationType` (xsd:string): Technology or realization type (for example `software`, `firmware`, `hardware`). Source: [2], [3]
+- `version` (xsd:string): Version or revision identifier of the implementation artifact. Source: [3]
 
 ### TestCase
 
@@ -118,7 +126,7 @@ Datatype properties:
 
 ### Stakeholder
 
-Person, role, or organization responsible for creating or changing artifacts.
+Person, role, or organization responsible for creating or changing artifacts. Subclass of `IdentifiableObject`.
 
 Datatype properties:
 - `stakeholderRole` (xsd:string): Role in lifecycle activities. Source: [1], [2]
@@ -128,16 +136,14 @@ Datatype properties:
 
 | Relation | classification [2] | Domain | Range |
 | --- | --- | --- | --- |
-| satisfies | Satisfaction | DesignElement OR CodeModule | Requirement |
-| verifies | Satisfaction | TestCase | Requirement OR CodeModule |
-| refines | Dependency | DesignElement OR Requirement | DesignElement OR Requirement |
+| satisfies | Satisfaction | DesignElement | Requirement |
+| verifies | Satisfaction | TestCase | Implementation |
+| realizes | Dependency | Implementation | DesignElement |
 | contains | Dependency | Requirement | Requirement |
-| derivedFrom | Evolution | Requirement | Requirement |
-| copiedFrom | Evolution | Requirement | Requirement |
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |
 | originatesFrom | - | Rationale | Source |
-| createdBy | - | Decision OR Requirement | Stakeholder |
+| involves | - | TraceableObject | Stakeholder |
 
 ## Development
 
