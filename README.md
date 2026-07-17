@@ -8,7 +8,7 @@ traceability classes and properties for pre- and post-requirement links.
 
 You can visualize the ontology (TTL file) with [WebVOWL](https://service.tib.eu/webvowl/).
 
-![Traceability Ontology](./traceability-draft.ttl.svg)
+![Traceability Ontology](./traceability.ttl.svg)
 
 ## Installation
 
@@ -41,11 +41,11 @@ g.add((rationale, RDF.type, Traceability.Rationale))
 g.add((source, RDF.type, Traceability.Source))
 g.add((stakeholder, RDF.type, Traceability.Stakeholder))
 g.add((test, RDF.type, Traceability.TestCase))
-g.add((module, RDF.type, Traceability.CodeModule))
+g.add((module, RDF.type, Traceability.Implementation))
 
 # Satisfaction
 g.add((design, Traceability.satisfies, req))
-g.add((module, Traceability.implements, design))
+g.add((module, Traceability.realizes, design))
 g.add((test, Traceability.verifies, module))
 
 # Rationale and provenance
@@ -86,13 +86,13 @@ Design artifact that realizes requirements.
 Datatype properties:
 - `designType` (xsd:string): Design kind (for example architecture block, interface, SysML element). Source: [4]
 
-### CodeModule
+### Implementation
 
 Implementation artifact such as a module, class, or function.
 
 Datatype properties:
-- `programmingLanguage` (xsd:string): Implementation language of the module. Source: [3]
-- `modulePath` (xsd:string): Repository or file path of the module. Source: [3]
+- `implementationType` (xsd:string): Technology or realization type (for example `software`, `firmware`, `hardware`). Source: [2], [3]
+- `version` (xsd:string): Version or revision identifier of the implementation artifact. Source: [3]
 
 ### TestCase
 
@@ -137,8 +137,8 @@ Datatype properties:
 | Relation | classification [2] | Domain | Range |
 | --- | --- | --- | --- |
 | satisfies | Satisfaction | DesignElement | Requirement |
-| verifies | Satisfaction | TestCase | CodeModule |
-| implements | Dependency | CodeModule | DesignElement |
+| verifies | Satisfaction | TestCase | Implementation |
+| realizes | Dependency | Implementation | DesignElement |
 | contains | Dependency | Requirement | Requirement |
 | tracesTo | Rationale | Requirement | Rationale |
 | isJustifiedBy | Rationale | Decision | Rationale |

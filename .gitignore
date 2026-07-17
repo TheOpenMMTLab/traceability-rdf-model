@@ -41,3 +41,7 @@ cover/
 # virtualenv
 .venv/
 venv/
+
+
+#publication
+pub/

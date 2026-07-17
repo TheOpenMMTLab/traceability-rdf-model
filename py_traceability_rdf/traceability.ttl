@@ -45,12 +45,11 @@ trc:identifier a owl:DatatypeProperty ;
     rdfs:domain trc:IdentifiableObject ;
     rdfs:range xsd:string .
 
-trc:implements a owl:ObjectProperty ;
-    rdfs:label "implements"@en ;
-    rdfs:comment "Links a code module to the design element it implements."@en ;
-    rdfs:domain trc:CodeModule ;
-    rdfs:range trc:DesignElement ;
-    rdfs:subPropertyOf trc:DependencyRelation .
+trc:implementationType a owl:DatatypeProperty ;
+    rdfs:label "Implementation Type"@en ;
+    rdfs:comment "Technology or realization type of the implementation artifact, for example software, firmware, or hardware."@en ;
+    rdfs:domain trc:Implementation ;
+    rdfs:range xsd:string .
 
 trc:involves a owl:ObjectProperty ;
     rdfs:label "involves"@en ;
@@ -71,12 +70,6 @@ trc:modifiedAt a owl:DatatypeProperty ;
     rdfs:domain trc:TraceableObject ;
     rdfs:range xsd:dateTime .
 
-trc:modulePath a owl:DatatypeProperty ;
-    rdfs:label "Module Path"@en ;
-    rdfs:comment "Repository or file-system path of a code module."@en ;
-    rdfs:domain trc:CodeModule ;
-    rdfs:range xsd:string .
-
 trc:organization a owl:DatatypeProperty ;
     rdfs:label "Organization"@en ;
     rdfs:comment "Organization or team affiliation of the stakeholder."@en ;
@@ -89,17 +82,18 @@ trc:originatesFrom a owl:ObjectProperty ;
     rdfs:domain trc:Rationale ;
     rdfs:range trc:Source .
 
-trc:programmingLanguage a owl:DatatypeProperty ;
-    rdfs:label "Programming Language"@en ;
-    rdfs:comment "Programming language of a code module."@en ;
-    rdfs:domain trc:CodeModule ;
-    rdfs:range xsd:string .
-
 trc:rationaleKind a owl:DatatypeProperty ;
     rdfs:label "Rationale Kind"@en ;
     rdfs:comment "Rationale category, for example issue, argument, assumption, or alternative."@en ;
     rdfs:domain trc:Rationale ;
     rdfs:range xsd:string .
+
+trc:realizes a owl:ObjectProperty ;
+    rdfs:label "realizes"@en ;
+    rdfs:comment "Links an implementation artifact to the design element it realizes."@en ;
+    rdfs:domain trc:Implementation ;
+    rdfs:range trc:DesignElement ;
+    rdfs:subPropertyOf trc:DependencyRelation .
 
 trc:satisfies a owl:ObjectProperty ;
     rdfs:label "satisfies"@en ;
@@ -153,10 +147,16 @@ trc:verificationStatus a owl:DatatypeProperty ;
 
 trc:verifies a owl:ObjectProperty ;
     rdfs:label "verifies"@en ;
-    rdfs:comment "Links a test case to a code module it verifies."@en ;
+    rdfs:comment "Links a test case to an implementation artifact it verifies."@en ;
     rdfs:domain trc:TestCase ;
-    rdfs:range trc:CodeModule ;
+    rdfs:range trc:Implementation ;
     rdfs:subPropertyOf trc:SatisfactionRelation .
+
+trc:version a owl:DatatypeProperty ;
+    rdfs:label "Version"@en ;
+    rdfs:comment "Version or revision identifier of the implementation artifact."@en ;
+    rdfs:domain trc:Implementation ;
+    rdfs:range xsd:string .
 
 <https://gitlab.hpi.de/dfriedenberger/traceability> a owl:Ontology ;
     dcterms:creator <https://www.researchgate.net/profile/Dirk_Friedenberger>,
@@ -203,14 +203,14 @@ trc:TestCase a owl:Class ;
     rdfs:comment "A verification artifact used to validate requirements or implementation."@en ;
     rdfs:subClassOf trc:TraceableObject .
 
-trc:CodeModule a owl:Class ;
-    rdfs:label "Code Module"@en ;
-    rdfs:comment "A software implementation artifact such as a module, class, or function."@en ;
-    rdfs:subClassOf trc:TraceableObject .
-
 trc:IdentifiableObject a owl:Class ;
     rdfs:label "Identifiable Object"@en ;
     rdfs:comment "Abstract base class for entities with identifier and title metadata."@en .
+
+trc:Implementation a owl:Class ;
+    rdfs:label "Implementation"@en ;
+    rdfs:comment "A software implementation artifact such as a module, class, or function."@en ;
+    rdfs:subClassOf trc:TraceableObject .
 
 trc:Rationale a owl:Class ;
     rdfs:label "Rationale"@en ;
