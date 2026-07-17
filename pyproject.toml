@@ -1,11 +1,16 @@
 [tool.poetry]
 name = "py_traceability_rdf"
-version = "0.0.1"
+version = "0.0.0"
 description = "A Python library providing RDF ontology definitions for requirement traceability across heterogeneous MBSE artifacts."
 authors = ["Dirk Friedenberger <projekte@frittenburger.de>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/TheOpenMMTLab/traceability-rdf-model"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -15,5 +20,5 @@ rdflib = ">=6.0"
 pytest = ">=7.0"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"

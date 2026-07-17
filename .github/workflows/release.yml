@@ -39,6 +39,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,6 +49,9 @@ jobs:
 
       - name: Install poetry
         run: pip install poetry
+
+      - name: Enable Poetry dynamic versioning plugin
+        run: poetry self add "poetry-dynamic-versioning[plugin]"
 
       - name: Install dependencies
         run: poetry install
