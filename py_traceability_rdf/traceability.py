@@ -31,6 +31,7 @@ class Traceability(DefinedNamespace):
     contains: URIRef = ontology.get_object_property("#contains")
     satisfies: URIRef = ontology.get_object_property("#satisfies")
     verifies: URIRef = ontology.get_object_property("#verifies")
+    covers: URIRef = ontology.get_object_property("#covers")
     realizes: URIRef = ontology.get_object_property("#realizes")
     tracesTo: URIRef = ontology.get_object_property("#tracesTo")
     isJustifiedBy: URIRef = ontology.get_object_property("#isJustifiedBy")

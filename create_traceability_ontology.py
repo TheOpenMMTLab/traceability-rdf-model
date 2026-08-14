@@ -224,9 +224,16 @@ g.add((NS.satisfies, RDFS.comment, Literal("Links a design element to a requirem
 g.add((NS.verifies, RDF.type, OWL.ObjectProperty))
 g.add((NS.verifies, RDFS.subPropertyOf, NS.SatisfactionRelation))
 g.add((NS.verifies, RDFS.domain, NS.TestCase))
-g.add((NS.verifies, RDFS.range, NS.Implementation))
+g.add((NS.verifies, RDFS.range, NS.Requirement))
 g.add((NS.verifies, RDFS.label, Literal("verifies", lang='en')))
-g.add((NS.verifies, RDFS.comment, Literal("Links a test case to an implementation artifact it verifies.", lang='en')))
+g.add((NS.verifies, RDFS.comment, Literal("Links a test case to a requirement it verifies.", lang='en')))
+
+g.add((NS.covers, RDF.type, OWL.ObjectProperty))
+g.add((NS.covers, RDFS.subPropertyOf, NS.SatisfactionRelation))
+g.add((NS.covers, RDFS.domain, NS.TestCase))
+g.add((NS.covers, RDFS.range, NS.Implementation))
+g.add((NS.covers, RDFS.label, Literal("covers", lang='en')))
+g.add((NS.covers, RDFS.comment, Literal("Links a test case to an implementation artifact it covers.", lang='en')))
 
 g.add((NS.realizes, RDF.type, OWL.ObjectProperty))
 g.add((NS.realizes, RDFS.subPropertyOf, NS.DependencyRelation))

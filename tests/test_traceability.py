@@ -19,6 +19,7 @@ def test_classes_exist():
 def test_object_properties_exist():
     assert isinstance(Traceability.satisfies, URIRef)
     assert isinstance(Traceability.verifies, URIRef)
+    assert isinstance(Traceability.covers, URIRef)
     assert isinstance(Traceability.realizes, URIRef)
     assert isinstance(Traceability.involves, URIRef)
     assert isinstance(Traceability.isJustifiedBy, URIRef)
@@ -47,10 +48,12 @@ def test_workflow():
     g.add((stakeholder, RDF.type, Traceability.Stakeholder))
     g.add((design, Traceability.satisfies, req))
     g.add((module, Traceability.realizes, design))
-    g.add((test, Traceability.verifies, module))
+    g.add((test, Traceability.verifies, req))
+    g.add((test, Traceability.covers, module))
     g.add((design, Traceability.involves, stakeholder))
 
     assert (design, Traceability.satisfies, req) in g
     assert (module, Traceability.realizes, design) in g
-    assert (test, Traceability.verifies, module) in g
+    assert (test, Traceability.verifies, req) in g
+    assert (test, Traceability.covers, module) in g
     assert (design, Traceability.involves, stakeholder) in g
