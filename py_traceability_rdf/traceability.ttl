@@ -15,6 +15,13 @@ trc:contains a owl:ObjectProperty ;
     rdfs:range trc:Requirement ;
     rdfs:subPropertyOf trc:DependencyRelation .
 
+trc:covers a owl:ObjectProperty ;
+    rdfs:label "covers"@en ;
+    rdfs:comment "Links a test case to an implementation artifact it covers."@en ;
+    rdfs:domain trc:TestCase ;
+    rdfs:range trc:Implementation ;
+    rdfs:subPropertyOf trc:SatisfactionRelation .
+
 trc:createdAt a owl:DatatypeProperty ;
     rdfs:label "Created At"@en ;
     rdfs:comment "Timestamp when the object was initially created."@en ;
@@ -147,9 +154,9 @@ trc:verificationStatus a owl:DatatypeProperty ;
 
 trc:verifies a owl:ObjectProperty ;
     rdfs:label "verifies"@en ;
-    rdfs:comment "Links a test case to an implementation artifact it verifies."@en ;
+    rdfs:comment "Links a test case to a requirement it verifies."@en ;
     rdfs:domain trc:TestCase ;
-    rdfs:range trc:Implementation ;
+    rdfs:range trc:Requirement ;
     rdfs:subPropertyOf trc:SatisfactionRelation .
 
 trc:version a owl:DatatypeProperty ;
@@ -164,7 +171,7 @@ trc:version a owl:DatatypeProperty ;
     dcterms:description "An RDF ontology for object-level traceability."@en ;
     dcterms:identifier "http://frittenburger.de/ontology/traceability#" ;
     dcterms:title "Traceability Ontology" ;
-    owl:versionInfo "0.0.1" .
+    owl:versionInfo "0.0.0" .
 
 trc:Decision a owl:Class ;
     rdfs:label "Decision"@en ;
@@ -179,14 +186,14 @@ trc:RationaleRelation a owl:ObjectProperty ;
     rdfs:label "Rationale Relation"@en ;
     rdfs:comment "Abstract relation category for justification-related links."@en .
 
-trc:SatisfactionRelation a owl:ObjectProperty ;
-    rdfs:label "Satisfaction Relation"@en ;
-    rdfs:comment "Abstract relation category for satisfaction and verification links."@en .
-
 trc:DesignElement a owl:Class ;
     rdfs:label "Design Element"@en ;
     rdfs:comment "A design artifact that realizes requirements."@en ;
     rdfs:subClassOf trc:TraceableObject .
+
+trc:SatisfactionRelation a owl:ObjectProperty ;
+    rdfs:label "Satisfaction Relation"@en ;
+    rdfs:comment "Abstract relation category for satisfaction and verification links."@en .
 
 trc:Source a owl:Class ;
     rdfs:label "Source"@en ;
@@ -197,11 +204,6 @@ trc:Stakeholder a owl:Class ;
     rdfs:label "Stakeholder"@en ;
     rdfs:comment "A person, role, or organization responsible for creating or changing artifacts."@en ;
     rdfs:subClassOf trc:IdentifiableObject .
-
-trc:TestCase a owl:Class ;
-    rdfs:label "Test Case"@en ;
-    rdfs:comment "A verification artifact used to validate requirements or implementation."@en ;
-    rdfs:subClassOf trc:TraceableObject .
 
 trc:IdentifiableObject a owl:Class ;
     rdfs:label "Identifiable Object"@en ;
@@ -215,6 +217,11 @@ trc:Implementation a owl:Class ;
 trc:Rationale a owl:Class ;
     rdfs:label "Rationale"@en ;
     rdfs:comment "An explanation or justification that captures why a decision was made."@en ;
+    rdfs:subClassOf trc:TraceableObject .
+
+trc:TestCase a owl:Class ;
+    rdfs:label "Test Case"@en ;
+    rdfs:comment "A verification artifact used to validate requirements or implementation."@en ;
     rdfs:subClassOf trc:TraceableObject .
 
 trc:Requirement a owl:Class ;

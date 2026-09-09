@@ -46,7 +46,8 @@ g.add((module, RDF.type, Traceability.Implementation))
 # Satisfaction
 g.add((design, Traceability.satisfies, req))
 g.add((module, Traceability.realizes, design))
-g.add((test, Traceability.verifies, module))
+g.add((test, Traceability.verifies, req))
+g.add((test, Traceability.covers, module))
 
 # Rationale and provenance
 g.add((decision, Traceability.isJustifiedBy, rationale))
@@ -137,7 +138,8 @@ Datatype properties:
 | Relation | classification [2] | Domain | Range |
 | --- | --- | --- | --- |
 | satisfies | Satisfaction | DesignElement | Requirement |
-| verifies | Satisfaction | TestCase | Implementation |
+| verifies | Satisfaction | TestCase | Requirement |
+| covers | Satisfaction | TestCase | Implementation |
 | realizes | Dependency | Implementation | DesignElement |
 | contains | Dependency | Requirement | Requirement |
 | tracesTo | Rationale | Requirement | Rationale |
