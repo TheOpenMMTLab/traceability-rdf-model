@@ -72,7 +72,6 @@ Datatype properties:
 
 Requirement that defines goals, constraints, or expected behavior.
 
-- `title` (xsd:string): Requirement text composed from subject, object, and predicate.
 - `modality` (xsd:string): Binding level of the requirement, for example `must`, `should`, or `may`.
 - `condition` (xsd:string): Optional condition under which the requirement applies.
 
@@ -104,7 +103,6 @@ Datatype properties:
 Decision made during development or change management.
 
 Datatype properties:
-- `title` (xsd:string): Chosen alternative or decision recorded as the decision title.
 - `decisionStatus` (xsd:string): Decision state (proposed, accepted, rejected, deprecated). Source: [2]
 
 ### Source
