@@ -194,7 +194,7 @@ g.add((NS.organization, RDFS.comment, Literal("Organization or team affiliation 
 
 # Relations
 
-# Relation categories by Ramesh & Jarke (2001)
+# Four categories (Satisfaction, Dependency, Evolution, Rationale) by Ramesh & Jarke (2001)
 # Abstract evolution relation
 g.add((NS.EvolutionRelation, RDF.type, OWL.ObjectProperty))
 g.add((NS.EvolutionRelation, RDFS.label, Literal("Evolution Relation", lang='en')))
@@ -210,7 +210,7 @@ g.add((NS.DependencyRelation, RDF.type, OWL.ObjectProperty))
 g.add((NS.DependencyRelation, RDFS.label, Literal("Dependency Relation", lang='en')))
 g.add((NS.DependencyRelation, RDFS.comment, Literal("Abstract relation category for dependency and decomposition links.", lang='en')))
 
-# Abstract rationale relation category retained for future rationale links
+# Abstract rationale relation
 g.add((NS.RationaleRelation, RDF.type, OWL.ObjectProperty))
 g.add((NS.RationaleRelation, RDFS.label, Literal("Rationale Relation", lang='en')))
 g.add((NS.RationaleRelation, RDFS.comment, Literal("Abstract relation category for justification-related links.", lang='en')))

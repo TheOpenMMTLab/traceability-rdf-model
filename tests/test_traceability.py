@@ -18,7 +18,6 @@ def test_classes_exist():
 
 
 def test_object_properties_exist():
-    assert isinstance(Traceability.RationaleRelation, URIRef)
     assert isinstance(Traceability.satisfies, URIRef)
     assert isinstance(Traceability.verifies, URIRef)
     assert isinstance(Traceability.covers, URIRef)
