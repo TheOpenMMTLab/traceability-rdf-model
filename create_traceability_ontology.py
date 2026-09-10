@@ -1,7 +1,17 @@
-from rdflib import Graph, Namespace, RDF, RDFS, OWL, URIRef, DCTERMS, Literal, XSD
-from rdflib import BNode
-from rdflib.collection import Collection
 import tomllib
+from rdflib import (
+    DCTERMS,
+    OWL,
+    RDF,
+    RDFS,
+    XSD,
+    BNode,
+    Graph,
+    Literal,
+    Namespace,
+    URIRef,
+)
+from rdflib.collection import Collection
 
 
 def create_union(classes):

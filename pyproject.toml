@@ -14,7 +14,7 @@ style = "semver"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-rdflib = ">=6.0"
+rdflib = ">=7.6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.0"

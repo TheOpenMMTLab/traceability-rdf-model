@@ -1,5 +1,6 @@
+from rdflib import RDF, Graph, URIRef
+
 from py_traceability_rdf import Traceability
-from rdflib import URIRef, Graph, RDF
 
 
 def test_namespace_exists():

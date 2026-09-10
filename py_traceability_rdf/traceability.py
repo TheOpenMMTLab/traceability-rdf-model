@@ -1,6 +1,8 @@
 from pathlib import Path
-from rdflib.namespace import DefinedNamespace
+
 from rdflib import URIRef
+from rdflib.namespace import DefinedNamespace
+
 from .ontology_reader import OntologyReader
 
 current_dir = Path(__file__).parent

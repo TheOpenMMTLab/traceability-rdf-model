@@ -1,5 +1,6 @@
-from rdflib import Graph, DCTERMS
 import string
+
+from rdflib import DCTERMS, Graph
 
 
 class OntologyReader:
