@@ -84,11 +84,6 @@ g.add((NS.Decision, RDFS.label, Literal("Decision", lang='en')))
 g.add((NS.Decision, RDFS.comment, Literal("A decision made during development or change management.", lang='en')))
 g.add((NS.Decision, RDFS.subClassOf, NS.TraceableObject))
 
-g.add((NS.Rationale, RDF.type, OWL.Class))
-g.add((NS.Rationale, RDFS.label, Literal("Rationale", lang='en')))
-g.add((NS.Rationale, RDFS.comment, Literal("An explanation or justification that captures why a decision was made.", lang='en')))
-g.add((NS.Rationale, RDFS.subClassOf, NS.TraceableObject))
-
 g.add((NS.Source, RDF.type, OWL.Class))
 g.add((NS.Source, RDFS.label, Literal("Source", lang='en')))
 g.add((NS.Source, RDFS.comment, Literal("A source artifact such as a document, note, ticket, or standard.", lang='en')))
@@ -124,11 +119,17 @@ g.add((NS.modifiedAt, RDFS.range, XSD.dateTime))
 g.add((NS.modifiedAt, RDFS.label, Literal("Modified At", lang='en')))
 g.add((NS.modifiedAt, RDFS.comment, Literal("Timestamp of the latest modification.", lang='en')))
 
-g.add((NS.criticality, RDF.type, OWL.DatatypeProperty))
-g.add((NS.criticality, RDFS.domain, NS.Requirement))
-g.add((NS.criticality, RDFS.range, XSD.string))
-g.add((NS.criticality, RDFS.label, Literal("Criticality", lang='en')))
-g.add((NS.criticality, RDFS.comment, Literal("Criticality level used for prioritization and compliance planning.", lang='en')))
+g.add((NS.modality, RDF.type, OWL.DatatypeProperty))
+g.add((NS.modality, RDFS.domain, NS.Requirement))
+g.add((NS.modality, RDFS.range, XSD.string))
+g.add((NS.modality, RDFS.label, Literal("Modality", lang='en')))
+g.add((NS.modality, RDFS.comment, Literal("Binding level of the requirement, for example must, should, or may.", lang='en')))
+
+g.add((NS.condition, RDF.type, OWL.DatatypeProperty))
+g.add((NS.condition, RDFS.domain, NS.Requirement))
+g.add((NS.condition, RDFS.range, XSD.string))
+g.add((NS.condition, RDFS.label, Literal("Condition", lang='en')))
+g.add((NS.condition, RDFS.comment, Literal("Optional condition under which the requirement applies.", lang='en')))
 
 g.add((NS.designType, RDF.type, OWL.DatatypeProperty))
 g.add((NS.designType, RDFS.domain, NS.DesignElement))
@@ -165,12 +166,6 @@ g.add((NS.decisionStatus, RDFS.domain, NS.Decision))
 g.add((NS.decisionStatus, RDFS.range, XSD.string))
 g.add((NS.decisionStatus, RDFS.label, Literal("Decision Status", lang='en')))
 g.add((NS.decisionStatus, RDFS.comment, Literal("Decision state, for example proposed, accepted, rejected, or deprecated.", lang='en')))
-
-g.add((NS.rationaleKind, RDF.type, OWL.DatatypeProperty))
-g.add((NS.rationaleKind, RDFS.domain, NS.Rationale))
-g.add((NS.rationaleKind, RDFS.range, XSD.string))
-g.add((NS.rationaleKind, RDFS.label, Literal("Rationale Kind", lang='en')))
-g.add((NS.rationaleKind, RDFS.comment, Literal("Rationale category, for example issue, argument, assumption, or alternative.", lang='en')))
 
 g.add((NS.sourceType, RDF.type, OWL.DatatypeProperty))
 g.add((NS.sourceType, RDFS.domain, NS.Source))
@@ -220,7 +215,6 @@ g.add((NS.RationaleRelation, RDF.type, OWL.ObjectProperty))
 g.add((NS.RationaleRelation, RDFS.label, Literal("Rationale Relation", lang='en')))
 g.add((NS.RationaleRelation, RDFS.comment, Literal("Abstract relation category for justification-related links.", lang='en')))
 
-
 # Explicit relation definition for links
 
 # Satisfaction
@@ -260,32 +254,23 @@ g.add((NS.contains, RDFS.range, NS.Requirement))
 g.add((NS.contains, RDFS.label, Literal("contains", lang='en')))
 g.add((NS.contains, RDFS.comment, Literal("Represents hierarchical containment between requirements.", lang='en')))
 
-# Evolution
 # Rationale
-g.add((NS.tracesTo, RDF.type, OWL.ObjectProperty))
-g.add((NS.tracesTo, RDFS.subPropertyOf, NS.RationaleRelation))
-g.add((NS.tracesTo, RDFS.domain, NS.Requirement))
-g.add((NS.tracesTo, RDFS.range, NS.Rationale))
-g.add((NS.tracesTo, RDFS.label, Literal("traces to", lang='en')))
-g.add((NS.tracesTo, RDFS.comment, Literal("Links a requirement to rationale information for traceability.", lang='en')))
+g.add((NS.justifies, RDF.type, OWL.ObjectProperty))
+g.add((NS.justifies, RDFS.subPropertyOf, NS.RationaleRelation))
+g.add((NS.justifies, RDFS.domain, NS.Source))
+g.add((NS.justifies, RDFS.range, NS.Requirement))
+g.add((NS.justifies, RDFS.label, Literal("justifies", lang='en')))
+g.add((NS.justifies, RDFS.comment, Literal("Links a source to a requirement it justifies.", lang='en')))
 
-g.add((NS.isJustifiedBy, RDF.type, OWL.ObjectProperty))
-g.add((NS.isJustifiedBy, RDFS.subPropertyOf, NS.RationaleRelation))
-g.add((NS.isJustifiedBy, RDFS.domain, NS.Decision))
-g.add((NS.isJustifiedBy, RDFS.range, NS.Rationale))
-g.add((NS.isJustifiedBy, RDFS.label, Literal("is justified by", lang='en')))
-g.add((NS.isJustifiedBy, RDFS.comment, Literal("Links a decision to the rationale that justifies it.", lang='en')))
-
-
-# Provenance
-g.add((NS.originatesFrom, RDF.type, OWL.ObjectProperty))
-g.add((NS.originatesFrom, RDFS.domain, NS.Rationale))
-g.add((NS.originatesFrom, RDFS.range, NS.Source))
-g.add((NS.originatesFrom, RDFS.label, Literal("originates from", lang='en')))
-g.add((NS.originatesFrom, RDFS.comment, Literal("Links rationale information to the source it originates from.", lang='en')))
-
+g.add((NS.references, RDF.type, OWL.ObjectProperty))
+g.add((NS.references, RDFS.subPropertyOf, NS.RationaleRelation))
+g.add((NS.references, RDFS.domain, NS.Decision))
+g.add((NS.references, RDFS.range, NS.TraceableObject))
+g.add((NS.references, RDFS.label, Literal("references", lang='en')))
+g.add((NS.references, RDFS.comment, Literal("Links a decision to a traceable object it references.", lang='en')))
 
 g.add((NS.involves, RDF.type, OWL.ObjectProperty))
+g.add((NS.involves, RDFS.subPropertyOf, NS.DependencyRelation))
 g.add((NS.involves, RDFS.domain, NS.TraceableObject))
 g.add((NS.involves, RDFS.range, NS.Stakeholder))
 g.add((NS.involves, RDFS.label, Literal("involves", lang='en')))

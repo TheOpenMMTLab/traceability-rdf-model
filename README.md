@@ -28,7 +28,6 @@ g.bind("trc", Traceability._NS)
 req = URIRef("http://example.org#req_1")
 design = URIRef("http://example.org#design_1")
 decision = URIRef("http://example.org#decision_1")
-rationale = URIRef("http://example.org#rationale_1")
 source = URIRef("http://example.org#source_1")
 stakeholder = URIRef("http://example.org#stakeholder_1")
 test = URIRef("http://example.org#test_1")
@@ -37,7 +36,6 @@ module = URIRef("http://example.org#module_1")
 g.add((req, RDF.type, Traceability.Requirement))
 g.add((design, RDF.type, Traceability.DesignElement))
 g.add((decision, RDF.type, Traceability.Decision))
-g.add((rationale, RDF.type, Traceability.Rationale))
 g.add((source, RDF.type, Traceability.Source))
 g.add((stakeholder, RDF.type, Traceability.Stakeholder))
 g.add((test, RDF.type, Traceability.TestCase))
@@ -49,9 +47,6 @@ g.add((module, Traceability.realizes, design))
 g.add((test, Traceability.verifies, req))
 g.add((test, Traceability.covers, module))
 
-# Rationale and provenance
-g.add((decision, Traceability.isJustifiedBy, rationale))
-g.add((rationale, Traceability.originatesFrom, source))
 g.add((decision, Traceability.involves, stakeholder))
 ```
 
@@ -77,8 +72,8 @@ Datatype properties:
 
 Requirement that defines goals, constraints, or expected behavior.
 
-Datatype properties:
-- `criticality` (xsd:string): Criticality level for prioritization/compliance focus (for example `high`, `safety-critical`). Source: [2], [3]
+- `modality` (xsd:string): Binding level of the requirement, for example `must`, `should`, or `may`.
+- `condition` (xsd:string): Optional condition under which the requirement applies.
 
 ### DesignElement
 
@@ -110,13 +105,6 @@ Decision made during development or change management.
 Datatype properties:
 - `decisionStatus` (xsd:string): Decision state (proposed, accepted, rejected, deprecated). Source: [2]
 
-### Rationale
-
-Explanation or justification that captures why a decision was made.
-
-Datatype properties:
-- `rationaleKind` (xsd:string): Rationale category (issue, argument, assumption, alternative). Source: [2]
-
 ### Source
 
 Source artifact such as a document, note, ticket, or standard.
@@ -142,10 +130,9 @@ Datatype properties:
 | covers | Satisfaction | TestCase | Implementation |
 | realizes | Dependency | Implementation | DesignElement |
 | contains | Dependency | Requirement | Requirement |
-| tracesTo | Rationale | Requirement | Rationale |
-| isJustifiedBy | Rationale | Decision | Rationale |
-| originatesFrom | - | Rationale | Source |
-| involves | - | TraceableObject | Stakeholder |
+| justifies | Rationale | Source | Requirement |
+| references | Rationale | Decision | TraceableObject |
+| involves | Dependency | TraceableObject | Stakeholder |
 
 ## Development
 
